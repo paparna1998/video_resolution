@@ -44,32 +44,7 @@
         .videoCodec('libx264')
         .noAudio()
         .size('2560x1440')
-
-        //Generate 1080P video
-        .output(basename + "-2048 x 1080.mp4")
-        .videoCodec('libx264')
-        .noAudio()
-        .size('2048 x 1080')
-
-        //Generate 2160P video
-        .output(basename + "-3840 x 2160.mp4")
-        .videoCodec('libx264')
-        .noAudio()
-        .size('3840 x 2160')
-
-
-        //Generate 4320P video
-        .output(basename + "-7680 x 4320.mp4")
-        .videoCodec('libx264')
-        .noAudio()
-        .size('7680 x 4320')
-
-
-
-
-
-
-
+        
         .on('error',(err)=>{
             console.log(err)
         })
