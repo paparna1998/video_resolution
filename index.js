@@ -1,15 +1,16 @@
 (function () {
 
 const express = require("express"); 
+const ffmpeg = require("fluent-ffmpeg");
 const app = express(); 
 const PORT = process.env.PORT || 3000; 
 
 app.use(express.json());
 
 const videoResolns = [
-    {id:1, resolutionHD:'1280x720.mp4'},
-    {id:2, resolutionFullHD:'1920x1080.mp4'},
-    {id:3, resolutionQHD:'2560x1440.mp4'}
+    {id:1, resolutionHD:"1280x720.mp4"},
+    {id:2, resolutionFullHD:"1920x1080.mp4"},
+    {id:3, resolutionQHD:"2560x1440.mp4"}
 ]
 
 // For testing purposes 
@@ -36,8 +37,6 @@ app.get("/api/videoResolns/:id", (req, res) => {
     res.send(videoResoln); 
 }); 
 
-
-    const ffmpeg = require("fluent-ffmpeg")
     
     const args = process.argv.slice(2)
 
@@ -63,21 +62,22 @@ app.get("/api/videoResolns/:id", (req, res) => {
         ffmpeg(filename) 
 
         //Generate 720P video
-        .output(basename + "-" + JSON.stringify(videoResolns[0].resolutionHD))
+
+        .output(basename + "-" + videoResolns[0].resolutionHD)
         .videoCodec('libx264')
         .noAudio()
-        .size(JSON.stringify(videoResolns[0].resolutionHD))
+        .size(videoResolns[0].resolutionHD)
 
 
         //Generate 1080P video
-        .output(basename + "-" + JSON.stringify(videoResolns[1].resolutionFullHD))
+        .output(basename + "-" + videoResolns[1].resolutionFullHD)
         .videoCodec('libx264')
         .noAudio()
         .size(JSON.stringify(videoResolns[1].resolutionFullHD))
 
 
         //Generate 1440P video
-        .output(basename + "-" + JSON.stringify(videoResolns[2].resolutionQHD))
+        .output(basename + "-" + videoResolns[2].resolutionQHD)
         .videoCodec('libx264')
         .noAudio()
         .size(JSON.stringify(videoResolns[2].resolutionQHD))
