@@ -1,3 +1,5 @@
+
+
 (function () {
 
 const express = require("express"); 
@@ -34,11 +36,9 @@ app.post("/api/videoResolns", (req, res) => {
 app.get("/api/videoResolns/:id", (req, res) => { 
     const videoResoln = videoResolns.find(c => c.id === parseInt(req.params.id));
     if(!videoResoln) res.status(404).send('The videoResoln with the given Id was not found');
-    res.send(videoResoln); 
-}); 
-
     
-    const args = process.argv.slice(2)
+    // const args = process.argv.slice(2)
+    const args  = ['video.mp4'];
 
     //get name without extension
     function baseName(str){
@@ -50,50 +50,75 @@ app.get("/api/videoResolns/:id", (req, res) => {
         return base;
     }
 
+    console.log(args);
     args.forEach((val)=>{
         let filename = val
 
-        console.log(val)
+        // console.log(val)
 
-        let basename = baseName(filename)
+        var basename = baseName(filename)
 
-        console.log(basename)
+        // console.log(basename)
 
+        
+        if(req.params.id == 1){
+          //Generate 720P video
+          // console.log(1)
         ffmpeg(filename) 
-
-        //Generate 720P video
-
-        .output(basename + "-" + videoResolns[0].resolutionHD)
-        .videoCodec('libx264')
-        .noAudio()
-        .size(videoResolns[0].resolutionHD)
-
-
-        //Generate 1080P video
-        .output(basename + "-" + videoResolns[1].resolutionFullHD)
-        .videoCodec('libx264')
-        .noAudio()
-        .size(JSON.stringify(videoResolns[1].resolutionFullHD))
-
-
-        //Generate 1440P video
-        .output(basename + "-" + videoResolns[2].resolutionQHD)
-        .videoCodec('libx264')
-        .noAudio()
-        .size(JSON.stringify(videoResolns[2].resolutionQHD))
-
-        .on('error',(err)=>{
+          .output(basename + "-" + videoResolns[0].resolutionHD)
+          .videoCodec('libx264')
+          .noAudio()
+          .size(videoResolns[0].resolutionHD)
+          .on('error',(err)=>{
             console.log(err)
-        })
-
-        .on('progress',(progress)=>{
+          })
+          .on('progress',(progress)=>{
             console.log('... frames' + progress.frames)
-        })
-        .on('end',()=>{
+          })
+          .on('end',()=>{
             console.log('Finished processing.')
-        })
-        .run()
+          })
+          .run()
+          }
+
+          else if(req.params.id == 2){
+            console.log(filename)
+          ffmpeg(filename) 
+          .output(basename + "-" + videoResolns[1].resolutionFullHD)
+          .videoCodec('libx264')
+          .noAudio()
+          .size(videoResolns[1].resolutionFullHD)
+          .on('error',(err)=>{
+            console.log(err)
+          })
+          .on('progress',(progress)=>{
+            console.log('... frames' + progress.frames)
+          })
+          .on('end',()=>{
+            console.log('Finished processing.')
+          })
+          .run()
+          }
+          else{
+          ffmpeg(filename) 
+          .output(basename + "-" + videoResolns[2].resolutionQHD)
+          .videoCodec('libx264')
+          .noAudio()
+          .size(videoResolns[2].resolutionQHD)
+          .on('error',(err)=>{
+            console.log(err)
+          })
+          .on('progress',(progress)=>{
+            console.log('... frames' + progress.frames)
+          })
+          .on('end',()=>{
+            console.log('Finished processing.')
+          })
+          .run()
+          }
     })
+    res.send(videoResoln); 
+  }); 
 
 app.listen(PORT, () => { 
     console.log(`API is listening on port ${PORT}`); 
