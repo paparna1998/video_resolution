@@ -1,6 +1,7 @@
 (function () {
 
     const express = require("express"); 
+    const ffmpeg = require("fluent-ffmpeg")
     const app = express(); 
     const PORT = process.env.PORT || 3000; 
     
@@ -35,9 +36,6 @@
         if(!videoBitrate) res.status(404).send('The videoResoln with the given Id was not found');
         res.send(videoBitrate); 
     }); 
-    
-    
-        const ffmpeg = require("fluent-ffmpeg")
         
         const args = process.argv.slice(2)
     
