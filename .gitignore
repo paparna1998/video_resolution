@@ -1,24 +1,3 @@
 /node_modules
 
 
-
-//Generate 1080P video
-        // else if(req.params.id == 2){
-        // console.log(2)
-        // ffmpeg(filename) 
-        // .output(basename + "-" + videoResolns[1].resolutionFullHD)
-        // .videoCodec('libx264')
-        // .noAudio()
-        // .size(JSON.stringify(videoResolns[1].resolutionFullHD))
-        // }
-
-
-        //Generate 1440P video
-        // else if(req.params.id == 3){
-        //  console.log(3)
-        // ffmpeg(filename) 
-        // .output(basename + "-" + videoResolns[2].resolutionQHD)
-        // .videoCodec('libx264')
-        // .noAudio()
-        // .size(JSON.stringify(videoResolns[2].resolutionQHD))
-        // }
